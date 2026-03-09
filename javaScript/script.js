@@ -27,13 +27,15 @@ const getObjectItem = () => {
 
 }
 
+console.log(`-------------------------`)
+
 
 const mainAllProduct = () => {
     const productEl = document.getElementById("product");
     const quantityEl = document.getElementById("quantity");
 
     const product = productEl.value;
-    const quantity = quantityEl.value;
+    const quantity = parseInt(quantityEl.value);
 
     displayProduct(product, quantity);
     addToProduct(product, quantity);
@@ -45,16 +47,32 @@ const mainAllProduct = () => {
 
 
 const getCart = () => {
-    const cart = {};
+    let cart = {};
+    let cartJson = localStorage.getItem("cart")
+    console.log(cartJson)
+    if (cartJson) {
+        cart = JSON.parse(cartJson)
+    }
     return cart;
 }
 
 const addToProduct = (product, quantity) => {
     let cart = getCart();
-    cart[product] = quantity;
-    console.log("cart", cart)
+
+    if (cart[product]) {
+        cart[product] = cart[product] + quantity;
+    } else {
+        cart[product] = quantity;
+    }
+
+
+    console.log("cart", cart);
+    const item = JSON.stringify(cart)
+    localStorage.setItem("cart", item);
 
 }
+
+
 
 
 const displayProduct = (product, quantity) => {
@@ -67,3 +85,21 @@ const displayProduct = (product, quantity) => {
     productList.append(li)
 
 }
+
+
+
+
+
+
+const displayAllProduct = () => {
+    const cart = getCart();
+    for (let item in cart) {
+        const itemAll = cart[item]
+        console.log(item, itemAll);
+        displayProduct(item, itemAll);
+    }
+
+}
+
+
+displayAllProduct()
