@@ -6,9 +6,23 @@ const addNumberToLs = () => {
     console.log(number)
 
 }
-const getNumberToLs= () => {
+const getNumberToLs = () => {
     const number = localStorage.getItem("number");
     console.log("number", number)
 
 }
-// getItem()
+
+const setObjectItem = () => {
+    const customer = { name: "kamal", age: 20 }
+    const customerJson = JSON.stringify(customer)
+    localStorage.setItem("customer", customerJson)
+
+}
+
+const getObjectItem = () => {
+
+    const customerJson = localStorage.getItem("customer")
+    const customer = JSON.parse(customerJson)
+    console.log( customer.name)
+
+}
